@@ -71,7 +71,7 @@ public class OssIndexAuditTask
 
       Map<PackageUrl, ResolvedArtifact> artifactsMap = getProject().getAllprojects().stream()
           .flatMap(project -> dependenciesFinder.findResolvedArtifacts(project).stream())
-          .collect(Collectors.toMap(this::packageUrl, artifact -> artifact));
+          .collect(Collectors.toMap(this::packageUrl, artifact -> artifact, (a1, a2) -> a1));
 
       List<PackageUrl> packageUrls = new ArrayList<>(artifactsMap.keySet());
       log.info("Checking vulnerabilities in {} artifacts", packageUrls.size());
